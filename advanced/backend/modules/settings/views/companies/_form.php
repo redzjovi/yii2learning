@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\datepicker\DatePicker;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -20,7 +21,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'logo')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'company_start_date')->textInput() ?>
+    <?= $form->field($model, 'company_start_date')->widget(
+        DatePicker::className(),
+        [
+            'inline' => false,
+            'clientOptions' => [
+                'autoclose' => true,
+                'format' => 'yyyy-mm-d',
+            ],
+        ]
+    ); ?>
 
     <?= $form->field($model, 'company_created_date')->textInput() ?>
 
