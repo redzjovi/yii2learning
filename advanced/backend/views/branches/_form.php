@@ -1,6 +1,7 @@
 <?php
 
 use backend\models\companies;
+use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -14,10 +15,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'companies_company_id')->dropDownList(
-        ArrayHelper::map(Companies::find()->all(), 'company_id', 'company_name'),
-        ['prompt' => '- Select Company -']
-    ); ?>
+    <?= $form->field($model, 'companies_company_id')->widget(Select2::classname(), [
+        'data' => ArrayHelper::map(Companies::find()->all(), 'company_id', 'company_name'),
+        'options' => ['placeholder' => 'Select a company ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
 
     <?= $form->field($model, 'branch_name')->textInput(['maxlength' => true]) ?>
 
