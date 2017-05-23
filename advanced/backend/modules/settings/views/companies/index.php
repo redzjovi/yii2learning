@@ -1,5 +1,6 @@
 <?php
 
+use dosamigos\datepicker\DatePicker;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -29,7 +30,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'company_email:email',
             'company_address',
             'logo',
-            // 'company_start_date',
+            [
+                'attribute' => 'company_start_date',
+                'filter' => DatePicker::widget([
+                    'attribute' => 'company_start_date',
+                    'clientOptions' => [
+                        'autoclose' => true,
+                        'format' => 'yyyy-mm-dd',
+                    ],
+                    'model' => $searchModel,
+                ]),
+                'format' => 'raw',
+                'value' => 'company_start_date',
+            ],
             // 'company_created_date',
             // 'company_status',
 
