@@ -20,7 +20,10 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ],
-        'request' => [
+        'mailer' => [
+           'class' => 'yii\swiftmailer\Mailer',
+        ],
+         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
         'user' => [
