@@ -64,7 +64,7 @@ class BranchesController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->can('create-branch') {
+        if (Yii::$app->user->can('create-branch')) {
             $model = new Branches();
 
             if ($model->load(Yii::$app->request->post())) {
@@ -111,6 +111,20 @@ class BranchesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionLists($id = 0)
+    {
+        $countBranches = Branches::find()->where(['companies_company_id' => $id])->count();
+        $branches = Branches::find()->where(['companies_company_id' => $id])->all();
+
+        if ($countBranches > 0) {
+            foreach ($branches as $branch) {
+                echo '<option value="'.$branch->branch_id.'">'.$branch->branch_name.'</option>';
+            }
+        } else {
+            echo '<option></option>';
+        }
     }
 
     /**
