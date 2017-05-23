@@ -17,6 +17,9 @@ return [
         ],
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'request' => [
             'csrfParam' => '_csrf-backend',
         ],
