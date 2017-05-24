@@ -1,6 +1,8 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -14,11 +16,26 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="branches-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Branches', ['create'], ['class' => 'btn btn-success']) ?>
+        <?php // Html::a('Create Branches', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button('Create Branches', [
+            'class' => 'btn btn-success',
+            'id' => 'modalButton',
+            'value' => Url::to('index.php?r=branches/create'),
+        ]); ?>
     </p>
+
+    <?php Modal::begin([
+        'header' => '<h4>Branches</h4>',
+        'id' => 'modal',
+        'size' => 'modal-lg',
+    ]);
+    echo '<div id="modalContent"></div>';
+    Modal::end(); ?>
+
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

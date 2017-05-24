@@ -64,7 +64,7 @@ class BranchesController extends Controller
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->can('create-branch')) {
+        // if (Yii::$app->user->can('create-branch')) {
             $model = new Branches();
 
             if ($model->load(Yii::$app->request->post())) {
@@ -72,13 +72,13 @@ class BranchesController extends Controller
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->branch_id]);
             } else {
-                return $this->render('create', [
+                return $this->renderAjax('create', [
                     'model' => $model,
                 ]);
             }
-        } else {
-            throw new ForbiddenHttpException;
-        }
+        // } else {
+            // throw new ForbiddenHttpException;
+        // }
     }
 
     /**
