@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 
 <div class="companies-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['enableAjaxValidation' => true]); ?>
 
     <?= $form->field($model, 'company_name')->textInput(['maxlength' => true]) ?>
 
@@ -27,7 +27,7 @@ use yii\widgets\ActiveForm;
             'inline' => false,
             'clientOptions' => [
                 'autoclose' => true,
-                'format' => 'yyyy-mm-d',
+                'format' => 'yyyy-mm-dd',
             ],
         ]
     ); ?>

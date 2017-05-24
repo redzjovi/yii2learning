@@ -7,6 +7,8 @@ use backend\modules\settings\models\Companies;
 use backend\modules\settings\models\CompaniesSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 
 /**
@@ -64,6 +66,11 @@ class CompaniesController extends Controller
     public function actionCreate()
     {
         $model = new Companies();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->company_id]);
