@@ -3,6 +3,7 @@
 namespace backend\controllers;
 
 use Yii;
+use backend\models\Branches;
 use backend\models\Companies;
 use backend\models\CompaniesSearch;
 use yii\filters\VerbFilter;
@@ -64,6 +65,7 @@ class CompaniesController extends Controller
      */
     public function actionCreate()
     {
+        $branch = new Branches();
         $model = new Companies();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -74,9 +76,15 @@ class CompaniesController extends Controller
             $model->company_created_date = date('Y-m-d H:i:s');
             $model->logo = 'uploads/'.$fileName.'.'.$model->file->extension;
             $model->save();
+
+            $branch->companies_company_id = $model->company_id;
+            $branch->branch_created_date = date('Y-m-d H:i:s');
+            $branch->save();
+            
             return $this->redirect(['view', 'id' => $model->company_id]);
         } else {
             return $this->render('create', [
+                'branch' => $branch,
                 'model' => $model,
             ]);
         }
