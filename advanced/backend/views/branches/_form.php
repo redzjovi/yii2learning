@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
 <div class="branches-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['id' => $model->formName()]); ?>
 
     <?= $form->field($model, 'companies_company_id')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Companies::find()->all(), 'company_id', 'company_name'),
@@ -36,3 +36,25 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php $script = <<< JS
+$('form#{$model->formName()}').on('beforeSubmit', function(e) {
+    var \$form = $(this);
+    $.post(
+        \$form.attr('action'), \$form.serialize()
+    ).done(function(result) {
+        if (result == 1) {
+            $(document).find('#modal').modal('hide');
+            $(\$form).trigger('reset');
+            $.pjax.reload({ container: '#branchesGrid' });
+        } else {
+            $('#message').html(result.message);
+        }
+    }).fail(function() {
+        console.log('server error');
+    });
+    return false;
+});
+JS;
+$this->registerJs($script);
+?>
