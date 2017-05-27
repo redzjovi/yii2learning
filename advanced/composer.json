@@ -22,7 +22,8 @@
         "kartik-v/yii2-widget-select2": "^2.0",
         "wbraganca/yii2-dynamicform": "^2.0",
         "symfony/var-dumper": "^3.2",
-        "kartik-v/yii2-grid": "@dev"
+        "kartik-v/yii2-grid": "@dev",
+        "philippfrenzel/yii2fullcalendar": "^3.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

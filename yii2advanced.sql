@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 24, 2017 at 12:09 PM
+-- Generation Time: May 27, 2017 at 04:44 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -135,7 +135,7 @@ INSERT INTO `branches` (`branch_id`, `companies_company_id`, `branch_name`, `bra
 (2, 2, 'main branch', 'some branch address', '2014-12-05 06:12:27', 'inactive'),
 (3, 2, 'another branch', 'another branch address', '2014-12-05 07:12:16', 'active'),
 (4, 3, 'Sri Lanka', 'sdfdfsdf', '2014-12-15 01:12:24', 'active'),
-(5, 2, 'Branch Name 2', 'Branch Address 2', '2017-05-21 15:34:14', 'active');
+(9, 3, 'Branch Name 1', 'Branch Address 1', '2017-05-26 07:32:16', 'active');
 
 -- --------------------------------------------------------
 
@@ -232,6 +232,27 @@ INSERT INTO `emails` (`id`, `receiver_name`, `receiver_email`, `subject`, `conte
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `events`
+--
+
+DROP TABLE IF EXISTS `events`;
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `description` text NOT NULL,
+  `created_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `title`, `description`, `created_date`) VALUES
+(1, 'Title 1', 'Description 1', '2017-05-27 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locations`
 --
 
@@ -284,6 +305,14 @@ CREATE TABLE `po` (
   `description` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `po`
+--
+
+INSERT INTO `po` (`id`, `po_no`, `description`) VALUES
+(16, '1', 'Description 1'),
+(17, '2', 'Description');
+
 -- --------------------------------------------------------
 
 --
@@ -293,10 +322,20 @@ CREATE TABLE `po` (
 DROP TABLE IF EXISTS `po_item`;
 CREATE TABLE `po_item` (
   `id` int(11) NOT NULL,
-  `po_item_no` int(10) NOT NULL,
+  `po_item_no` varchar(10) NOT NULL,
   `quantity` double NOT NULL,
   `po_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_item`
+--
+
+INSERT INTO `po_item` (`id`, `po_item_no`, `quantity`, `po_id`) VALUES
+(1, 'po-item-1', 1, 16),
+(2, 'po-item-2', 2, 16),
+(3, 'po-item-21', 1, 17),
+(4, 'po-item-22', 2, 17);
 
 -- --------------------------------------------------------
 
@@ -394,6 +433,12 @@ ALTER TABLE `emails`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `locations`
 --
 ALTER TABLE `locations`
@@ -432,7 +477,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `companies`
 --
@@ -454,6 +499,11 @@ ALTER TABLE `departments`
 ALTER TABLE `emails`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
@@ -462,12 +512,12 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `po`
 --
 ALTER TABLE `po`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
 -- AUTO_INCREMENT for table `po_item`
 --
 ALTER TABLE `po_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `user`
 --
