@@ -3,7 +3,7 @@
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
 /* @var $this yii\web\View */
@@ -36,10 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<div id="modalContent"></div>';
     Modal::end(); ?>
 
-    <?php Pjax::begin(['id' => 'branchesGrid']); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'responsiveWrap' => true,
         'rowOptions' => function ($model) {
             if ($model->branch_status == 'active') {
                 return ['class' => 'success'];
@@ -47,11 +47,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 return ['class' => 'danger'];
             }
         },
+        'pjax' => true,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
                 'attribute' => 'companies_company_id',
                 'value' => 'companiesCompany.company_name',
+            ],
+            [
+                'attribute' => 'branch_name',
+                'class' => 'kartik\grid\EditableColumn',
             ],
             'branch_name',
             'branch_address',
@@ -61,5 +66,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-    <?php Pjax::end(); ?>
 </div>
