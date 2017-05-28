@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -20,6 +21,17 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= yii2fullcalendar\yii2fullcalendar::widget([
-        'events' => $events
+        'events' => $events,
+        'options' => [
+            'select' => true,
+        ],
     ]); ?>
+
+    <?php Modal::begin([
+        'header' => '<h4>Events</h4>',
+        'id' => 'modal',
+        'size' => 'modal-lg',
+    ]);
+    echo '<div id="modalContent"></div>';
+    Modal::end(); ?>
 </div>
