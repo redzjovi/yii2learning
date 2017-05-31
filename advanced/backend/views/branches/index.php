@@ -3,6 +3,7 @@
 use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use kartik\export\ExportMenu;
 use kartik\grid\GridView;
 use yii\widgets\Pjax;
 
@@ -35,6 +36,18 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     echo '<div id="modalContent"></div>';
     Modal::end(); ?>
+
+    <?php $gridColumns = [
+        'branch_name',
+        'branch_address',
+        'branch_created_date',
+        'branch_status',
+    ];
+    echo ExportMenu::widget([
+        'columns' => $gridColumns,
+        'dataProvider' => $dataProvider,
+    ]);
+    ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
