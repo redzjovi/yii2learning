@@ -9,6 +9,8 @@ use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 use yii\filters\VerbFilter;
 
 /**
@@ -82,6 +84,11 @@ class BranchesController extends Controller
         // if (Yii::$app->user->can('create-branch')) {
             $model = new Branches();
 
+            if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                return ActiveForm::validate($model);
+            }
+
             if ($model->load(Yii::$app->request->post())) {
                 $model->branch_created_date = date('Y-m-d H:i:s');
 
@@ -100,6 +107,16 @@ class BranchesController extends Controller
         // } else {
             // throw new ForbiddenHttpException;
         // }
+    }
+
+    public function actionValidation()
+    {
+        $model = new Branches();
+
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
     }
 
     public function actionImportExcel()
