@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e7cfa4dd6a051bfe0ddda4265273dce",
+    "content-hash": "a964c2aa4122bfa82a97ed4afb298587",
     "packages": [
         {
             "name": "2amigos/yii2-date-picker-widget",
@@ -1148,6 +1148,48 @@
                 "yii2"
             ],
             "time": "2017-04-12T09:00:24+00:00"
+        },
+        {
+            "name": "perminder-klair/yii2-dropzone",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/perminder-klair/yii2-dropzone.git",
+                "reference": "41e8145d940cc9955011138a9f16ad80e9831423"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/perminder-klair/yii2-dropzone/zipball/41e8145d940cc9955011138a9f16ad80e9831423",
+                "reference": "41e8145d940cc9955011138a9f16ad80e9831423",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "2.0.*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "kato\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Parminder Klair",
+                    "email": "perminder.klair@gmail.com"
+                }
+            ],
+            "description": "DropzoneJs Extention for Yii2",
+            "keywords": [
+                "dropzone",
+                "extension",
+                "upload",
+                "yii2"
+            ],
+            "time": "2015-11-09T11:28:44+00:00"
         },
         {
             "name": "philippfrenzel/yii2fullcalendar",
