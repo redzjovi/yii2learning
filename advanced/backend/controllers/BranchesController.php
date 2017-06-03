@@ -134,6 +134,7 @@ class BranchesController extends Controller
         $sheet = $objPHPExcel->getSheet(0);
         $highestRow = $sheet->getHighestRow();
         $highestColumn = $sheet->getHighestColumn();
+        $data = [];
 
         for ($row = 1; $row <= $highestRow; $row++) {
             $rowData = $sheet->rangeToArray('A'.$row.':'.$highestColumn.$row, null, true, false);
@@ -142,15 +143,25 @@ class BranchesController extends Controller
                 continue;
             }
 
-            $branch = new Branches();
-            $branch_id = $rowData[0][0];
-            $branch->companies_company_id = $rowData[0][1];
-            $branch->branch_name = $rowData[0][2];
-            $branch->branch_address = $rowData[0][3];
-            $branch->branch_created_date = $rowData[0][4];
-            $branch->branch_status = $rowData[0][5];
-            $branch->save();
+            // $branch = new Branches();
+            // $branch_id = $rowData[0][0];
+            // $branch->companies_company_id = $rowData[0][1];
+            // $branch->branch_name = $rowData[0][2];
+            // $branch->branch_address = $rowData[0][3];
+            // $branch->branch_created_date = $rowData[0][4];
+            // $branch->branch_status = $rowData[0][5];
+            // $branch->save();
+
+            if ( ! empty($rowData[0][0])) {
+                $data[] = [
+                    $rowData[0][1], $rowData[0][2], $rowData[0][3], $rowData[0][4], $rowData[0][5]
+                ];
+            }
         }
+
+        Yii::$app->db->createCommand()
+            ->batchInsert('branches', ['companies_company_id', 'branch_name', 'branch_address', 'branch_created_date', 'branch_status'], $data)
+            ->execute();
     }
 
     /**
