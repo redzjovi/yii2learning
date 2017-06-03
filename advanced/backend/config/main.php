@@ -23,6 +23,19 @@ return [
         'authManager' => [
             'class' => 'yii\rbac\PhpManager',
         ],
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    // 'basePath' => '@app/messages',
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                        'app/error' => 'error.php',
+                    ],
+                    // 'sourceLanguage' => 'en-US',
+                ],
+            ],
+        ],
         'mailer' => [
            'class' => 'yii\swiftmailer\Mailer',
         ],
