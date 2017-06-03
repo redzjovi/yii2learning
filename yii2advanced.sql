@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2017 at 04:44 PM
+-- Generation Time: Jun 03, 2017 at 07:36 AM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 5.6.28
 
@@ -135,7 +135,11 @@ INSERT INTO `branches` (`branch_id`, `companies_company_id`, `branch_name`, `bra
 (2, 2, 'main branch', 'some branch address', '2014-12-05 06:12:27', 'inactive'),
 (3, 2, 'another branch', 'another branch address', '2014-12-05 07:12:16', 'active'),
 (4, 3, 'Sri Lanka', 'sdfdfsdf', '2014-12-15 01:12:24', 'active'),
-(9, 3, 'Branch Name 1', 'Branch Address 1', '2017-05-26 07:32:16', 'active');
+(9, 3, 'Branch Name 1', 'Branch Address 1', '2017-05-26 07:32:16', 'active'),
+(10, 2, 'Branch Name 5', 'Branch Address 5', '0000-00-00 00:00:00', 'inactive'),
+(11, 2, 'Branch Name 6', 'Branch Address 6', '0000-00-00 00:00:00', 'active'),
+(12, 2, 'Branch Name 5', 'Branch Address 5', '0000-00-00 00:00:00', 'inactive'),
+(13, 2, 'Branch Name 6', 'Branch Address 6', '0000-00-00 00:00:00', 'active');
 
 -- --------------------------------------------------------
 
@@ -240,7 +244,7 @@ CREATE TABLE `events` (
   `id` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` text NOT NULL,
-  `created_date` datetime NOT NULL
+  `created_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -248,7 +252,8 @@ CREATE TABLE `events` (
 --
 
 INSERT INTO `events` (`id`, `title`, `description`, `created_date`) VALUES
-(1, 'Title 1', 'Description 1', '2017-05-27 00:00:00');
+(1, 'Title 1', 'Description 1', '2017-05-27'),
+(2, 'Event 1', '1', '2017-05-03');
 
 -- --------------------------------------------------------
 
@@ -275,6 +280,27 @@ INSERT INTO `locations` (`location_id`, `zip_code`, `city`, `province`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL,
+  `language` varchar(16) COLLATE utf8_unicode_ci NOT NULL,
+  `translation` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `message`
+--
+
+INSERT INTO `message` (`id`, `language`, `translation`) VALUES
+(1, 'en', 'congratulations'),
+(1, 'id', 'selamat');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `migration`
 --
 
@@ -290,7 +316,8 @@ CREATE TABLE `migration` (
 
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
 ('m000000_000000_base', 1416813354),
-('m130524_201442_init', 1416813368);
+('m130524_201442_init', 1416813368),
+('m150207_210500_i18n_init', 1496467097);
 
 -- --------------------------------------------------------
 
@@ -336,6 +363,26 @@ INSERT INTO `po_item` (`id`, `po_item_no`, `quantity`, `po_id`) VALUES
 (2, 'po-item-2', 2, 16),
 (3, 'po-item-21', 1, 17),
 (4, 'po-item-22', 2, 17);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `source_message`
+--
+
+DROP TABLE IF EXISTS `source_message`;
+CREATE TABLE `source_message` (
+  `id` int(11) NOT NULL,
+  `category` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `message` text COLLATE utf8_unicode_ci
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `source_message`
+--
+
+INSERT INTO `source_message` (`id`, `category`, `message`) VALUES
+(1, 'app', 'congratulations');
 
 -- --------------------------------------------------------
 
@@ -445,6 +492,13 @@ ALTER TABLE `locations`
   ADD PRIMARY KEY (`location_id`);
 
 --
+-- Indexes for table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`id`,`language`),
+  ADD KEY `idx_message_language` (`language`);
+
+--
 -- Indexes for table `migration`
 --
 ALTER TABLE `migration`
@@ -464,6 +518,13 @@ ALTER TABLE `po_item`
   ADD KEY `po_id` (`po_id`);
 
 --
+-- Indexes for table `source_message`
+--
+ALTER TABLE `source_message`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `idx_source_message_category` (`category`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -477,7 +538,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `branch_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `companies`
 --
@@ -502,7 +563,7 @@ ALTER TABLE `emails`
 -- AUTO_INCREMENT for table `events`
 --
 ALTER TABLE `events`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `locations`
 --
@@ -518,6 +579,11 @@ ALTER TABLE `po`
 --
 ALTER TABLE `po_item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `source_message`
+--
+ALTER TABLE `source_message`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `user`
 --
@@ -558,6 +624,12 @@ ALTER TABLE `branches`
 ALTER TABLE `departments`
   ADD CONSTRAINT `fk_departments_branches1` FOREIGN KEY (`branches_branch_id`) REFERENCES `branches` (`branch_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_departments_companies1` FOREIGN KEY (`companies_company_id`) REFERENCES `companies` (`company_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Constraints for table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `fk_message_source_message` FOREIGN KEY (`id`) REFERENCES `source_message` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `po_item`

@@ -27,11 +27,12 @@ return [
             'translations' => [
                 'app*' => [
                     // 'basePath' => '@app/messages',
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'fileMap' => [
-                        'app' => 'app.php',
-                        'app/error' => 'error.php',
-                    ],
+                    'class' => 'yii\i18n\DbMessageSource',
+                    // 'class' => 'yii\i18n\PhpMessageSource',
+                    // 'fileMap' => [
+                    //     'app' => 'app.php',
+                    //     'app/error' => 'error.php',
+                    // ],
                     // 'sourceLanguage' => 'en-US',
                 ],
             ],
