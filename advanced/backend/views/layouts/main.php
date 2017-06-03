@@ -57,6 +57,12 @@ AppAsset::register($this);
     ?>
 
     <div class="container">
+        <?php if (isset($this->params['test'])) {
+            echo $this->params['test'];
+        } ?>
+        <?php if (isset($this->blocks['advertisement'])) {
+            echo $this->blocks['advertisement'];
+        } ?>
         <?php foreach (Yii::$app->params['languages'] as $key => $language) {
             echo '<span class="language" id="'.$key.'">'.$language.' | </span>';
         } ?>

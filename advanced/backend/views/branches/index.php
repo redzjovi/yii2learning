@@ -37,7 +37,14 @@ $this->params['breadcrumbs'][] = $this->title;
     echo '<div id="modalContent"></div>';
     Modal::end(); ?>
 
-    <?php $gridColumns = [
+    <?php $this->params['test'] = 'This is a test string'; ?>
+
+    <?php $this->beginBlock('advertisement'); ?>
+        This is a advertisement
+    <?php $this->endBlock(); ?>
+
+    <?php
+    $gridColumns = [
         'branch_name',
         'branch_address',
         'branch_created_date',
