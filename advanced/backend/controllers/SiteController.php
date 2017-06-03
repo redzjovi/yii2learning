@@ -22,7 +22,7 @@ class SiteController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'actions' => ['index', 'login', 'error'],
+                        'actions' => ['index', 'login', 'error', 'set-cookie', 'show-cookie'],
                         'allow' => true,
                     ],
                     [
@@ -51,6 +51,22 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
         ];
+    }
+
+    public function actionSetCookie()
+    {
+        $cookie = new \yii\web\Cookie([
+            'name' => 'test',
+            'value' => 'test cookie value',
+        ]);
+        Yii::$app->getResponse()->getCookies()->add($cookie);
+    }
+
+    public function actionShowCookie()
+    {
+        if (Yii::$app->getRequest()->getCookies()->has('test')) {
+            print_r(Yii::$app->getRequest()->getCookies()->getValue('test'));
+        }
     }
 
     /**
