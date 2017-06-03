@@ -69,6 +69,16 @@ class BranchesSearch extends Branches
             ->andFilterWhere(['like', 'branch_status', $this->branch_status])
             ->andFilterWhere(['like', 'companies.company_name', $this->companies_company_id]);
 
+        $dataProvider->setSort([
+            'attributes' => [
+                'branch_name', 'branch_address', 'branch_created_date',
+                'companies_company_id' => [
+                    'asc' => ['companies.company_name' => SORT_ASC],
+                    'desc' => ['companies.company_name' => SORT_DESC],
+                ],
+            ],
+        ]);
+
         return $dataProvider;
     }
 }
