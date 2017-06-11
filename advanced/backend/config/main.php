@@ -21,7 +21,7 @@ return [
     ],
     'components' => [
         'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+            'class' => 'yii\rbac\DbManager',
         ],
         'i18n' => [
             'translations' => [
@@ -67,14 +67,11 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            // 'enablePrettyUrl' => true,
+            'rules' => [],
             'showScriptName' => false,
-            'rules' => [
-            ],
         ],
-        */
     ],
     'as beforeRequest' => [
         'class' => 'backend\components\CheckIfLoggedIn',
