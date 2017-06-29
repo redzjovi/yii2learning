@@ -22,8 +22,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'showPageSummary' => true,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'kartik\grid\SerialColumn'],
             [
                 'class' => 'kartik\grid\ExpandRowColumn',
                 'detail' => function($model, $key, $index, $column) {
@@ -44,8 +45,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             'po_no',
             'description:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute' => 'total',
+                // 'format' => 'currency',
+                'format' => 'decimal',
+                'hAlign' => 'right',
+                'pageSummary' => true,
+            ],
+            ['class' => 'kartik\grid\ActionColumn'],
         ],
     ]); ?>
 </div>

@@ -10,6 +10,7 @@ use Yii;
  * @property integer $id
  * @property string $po_no
  * @property string $description
+ * @property integer $total
  *
  * @property PoItem[] $poItems
  */
@@ -29,8 +30,9 @@ class Po extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['po_no', 'description'], 'required'],
+            [['po_no', 'description', 'total'], 'required'],
             [['description'], 'string'],
+            [['total'], 'integer'],
             [['po_no'], 'string', 'max' => 10],
         ];
     }
@@ -41,9 +43,10 @@ class Po extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'po_no' => 'Po No',
-            'description' => 'Description',
+            'id' => Yii::t('app', 'ID'),
+            'po_no' => Yii::t('app', 'Po No'),
+            'description' => Yii::t('app', 'Description'),
+            'total' => Yii::t('app', 'Total'),
         ];
     }
 

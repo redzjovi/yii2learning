@@ -5,5 +5,11 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+        'formatter' => [
+            'currencyCode' => 'IDR',
+            'decimalSeparator' => '.',
+            'locale' => 'id',
+            'thousandSeparator' => ',',
+        ],
     ],
 ];

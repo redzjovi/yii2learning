@@ -18,7 +18,7 @@ class PoSearch extends Po
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'total'], 'integer'],
             [['po_no', 'description'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class PoSearch extends Po
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'total' => $this->total,
         ]);
 
         $query->andFilterWhere(['like', 'po_no', $this->po_no])
